@@ -2,6 +2,8 @@
 
 Repository for the Data Base curricular unit.
 
+MIEIC @ FEUP
+
 Year: 2020/2021
 Semester: 2nd
 
