@@ -1,0 +1,13 @@
+Sugestion for the BDAD work:
+
+Hospital data-base;
+
+Classes to be implemented:
+- Worker -> can be either a medic, nurse, surgeon, volunteer, etc.
+- Person -> every worker is a person
+- 
+-
+-
+
+
+
