@@ -7,9 +7,9 @@ Classes to be implemented:
 - Person -> every worker is a person
 - Level -> location on the hospital, i.e. level 1, level 2...
 - Specialization -> each level can have one or more, or none, specialization / function i.e. surgery/cardiology/storaging, etc etc
-- Service -> appointment, surgery, etc etc
-- Date -> each service as a date
-- 
+- Service -> appointment, surgery, etc etc. Each service is appointed a person and one or more workers
+- Date -> each service as a date (can be just an attribute)
+- Ambulance -> Has certain workers, with certain specialties, is also assigned a worker, a level of urgence 
 
 
 
