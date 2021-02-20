@@ -12,4 +12,4 @@ Every worker should have a salary.
 
 A service has a tag. This tag will be something like diagnosis, apointment, meeting, etc. It also has a list of people that the service affected and a list of people that the service was run by. For example, a doctor may have a service with a patient. The service must also have a date.
 
-Additionally, the database must also be able to handle ambulances. Ambulaces have some workers and will be serving some patient. While serving a patient, an urgence level is assigned.
+Additionally, the database must also be able to handle ambulances. Ambulaces have some workers and will be serving some patient. While serving a patient, an urgence level is assigned. Ambulances will have designed staff that work on them, either driver, nurse or doctor. 
