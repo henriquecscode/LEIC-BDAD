@@ -1,0 +1,15 @@
+Exercise for BDAD work:
+
+Develop a database for an hospital that meets all the requirements presented.
+
+The database should be able to handle a multitude of people. There are clients and workers.
+
+For the clients, one should be able to distinguish between visitors or patients. A visitor is visiting a patient. A patient has a medical record and a location assigned. The medical record should register the workers of the hospital who have interacted with the patient and what was assessed. The location can either be a doctor's office, an intensive care room, operation room.
+Additionally, a patient can also have a service. 
+
+For the workers, they can either be maintenance staff, nurses, doctors (which can be of various specialties), managers. Workers can also be assigned services. Some of them may have their own office. Staff nurses and doctors can belong do a department, which a manager will oversee. Doctors can also have a speciality.
+Every worker should have a salary.
+
+A service has a tag. This tag will be something like diagnosis, apointment, meeting, etc. It also has a list of people that the service affected and a list of people that the service was run by. For example, a doctor may have a service with a patient. The service must also have a date.
+
+Additionally, the database must also be able to handle ambulances. Ambulaces have some workers and will be serving some patient. While serving a patient, an urgence level is assigned.
