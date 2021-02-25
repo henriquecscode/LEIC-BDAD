@@ -1,6 +1,6 @@
 # BDAD_PROJ
 
-Repository for the Data Base curricular unit.
+Repository for the Data Base curricular unit project.
 
 MIEIC @ FEUP
 
