@@ -28,17 +28,22 @@ Nurse(<ins>person</ins>->Person, department->Department)<br>
 person->department
 
 NurseService(<ins>nurse</ins>->Person, <ins>service</ins>->Service)<br>
+nurse, service -> nurse, service
 
 Doctor(<ins>person</ins>->Person, specialization, department->Department)<br>
 person-> specialization, department
 
 DoctorService(<ins>doctor</ins>->Person, <ins>service</ins>->Service)<br>
+doctor, service -> doctor, service
 
 Client(<ins>person</ins>->Person)<br>
+person->person
 
 Patient(<ins>person</ins>->Person)<br>
+person->person
 
 Visitor(<ins>person</ins>->Person)<br>
+person->person
 
 VisitTime(<ins>patient</ins>->Person, <ins>visitor</ins>->person, start_visit_date, 
 end_visit_date, order)<br>
@@ -48,8 +53,10 @@ MedicalRecord(<ins>patient</ins>->Person, <ins>service</ins>->Service, price, da
 patient, service ->price, date_in, date_out
 
 Appointment(<ins>service</ins>Service)<br>
+service->service
 
 Surgery(<ins>service</ins>Service)<br>
+service->service
 
 Ambulance(<ins>service</ins>Service, amb_id, amb_num, priority)<br>
 service-> amb_id, amb_num, priority
@@ -67,7 +74,9 @@ IntensiveCareRoom(<ins>location</ins>->Location, o2, iv)<br>
 location -> o2, iv
 
 NormalCareRoom(<ins>location</ins>->Location)<br>
+location->location
 
 Office(<ins>location</ins>->Location)<br>
+location->location
 
 </p>
