@@ -58,8 +58,8 @@ service->service
 Surgery(<ins>service</ins>Service)<br>
 service->service
 
-Ambulance(<ins>service</ins>Service, amb_id, amb_num, priority)<br>
-service-> amb_id, amb_num, priority
+Ambulance(<ins>service</ins>Service, amb_id, priority)<br>
+service-> amb_id, priority
 
 AmbulanceMaintenance(<ins>ambulance</ins>->Ambulance, <ins>maintenance</ins>->Maintenance, order)<br>
 ambulance, maintenance -> order
@@ -79,4 +79,10 @@ location->location
 Office(<ins>location</ins>->Location)<br>
 location->location
 
+</p>
+
+<p>
+Functional dependencies<br>
+Para as relações NurseService, DoctorService, Client, Patient, Visitor, Appointment, Surgery, NormalCareRoom e Office as dependências funcionais estão na BCNF, uma vez que se tratam de dependências funcionais triviais.<br>
+Para as restantes relações, exceto a relação Person, uma vez que o lado esquerdo da relação funcional é também a sua chave, é possível concluir que se encontra na forma BCNF.<br>
 </p>

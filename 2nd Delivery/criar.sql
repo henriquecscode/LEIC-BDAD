@@ -38,10 +38,10 @@ CREATE TABLE Person(
     age INTEGER CHECK(age > 0),
     gender TEXT CHECK(gerder == 'M' || gender == 'F'),
     phone_number INTEGER,
-    NIF INTEGER,
+    NIF INTEGER UNIQUE,
     email INTEGER,
     address INTEGER,
-    insurance_id INTEGER,
+    insurance_id INTEGER UNIQUE,
 
     CONSTRAINT validAge CHECK(date('now') - birth_date == age || birth_date IS NULL || death_date IS NOT NULL)
     //Might need to change as this might not be a viable difference
@@ -54,7 +54,7 @@ CREATE TABLE Department(
 
 CREATE TABLE Location(
     id INTEGER PRIMARY KEY,
-    room_number INTEGER CHECK(room_number > 0),
+    room_number INTEGER CHECK(room_number > 0) UNIQUE,
     bed_number INTEGER CHECK(bed_number > 0),
     department INTEGER REFERENCES Department
 );
@@ -157,8 +157,7 @@ CREATE TABLE Surgery(
 
 CREATE TABLE Ambulance(
     service INTEGER PRIMARY KEY REFERENCES Service
-    amb_id INTEGER CHECK(id > 0),
-    amb_num INTEGER CHECK(amb_num > 0),
+    amb_id INTEGER CHECK(id > 0) UNIQUE,
     priority INTEGER CHECK(priority >=1 && priority <= 5)
 );
 
