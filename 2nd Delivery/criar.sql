@@ -56,7 +56,7 @@ CREATE TABLE Location(
     id INTEGER PRIMARY KEY,
     room_number INTEGER CHECK(room_number > 0) UNIQUE,
     bed_number INTEGER CHECK(bed_number > 0),
-    department INTEGER REFERENCES Department
+    department INTEGER REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE Service(
@@ -67,42 +67,42 @@ CREATE TABLE Service(
 );
 
 CREATE TABLE Worker(
-    person PRIMARY KEY REFERENCES Person,
-    salary INTERGER CHECK (salary >= 0),
+    person PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL,
+    salary INTEGER CHECK (salary >= 0),
     //need to rework how work_schedule works
 );
 
 CREATE TABLE Manager(
-    person PRIMARY KEY REFERENCES Person,
-    department INTEGER REFERENCES Department NOT NULL
+    person PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL,
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE TABLE Maintenance(
     person PRIMARY KEY REFERENCES Person,
-    department INTEGER REFERENCES Department NOT NULL
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL  
 );
 
 CREATE TABLE Volunteer(
     person PRIMARY KEY REFERENCES Person,
     association_name TEXT,
-    department INTEGER REFERENCES Department NOT NULL
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE TABLE Nurse(
     person PRIMARY KEY REFERENCES Person,
-    department INTEGER REFERENCES Department NOT NULL
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE TABLE NurseService(
-    nurse REFERENCES Person
-    service REFERNCES Service
+    nurse REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL 
+    service REFERNCES Service ON UPDATE CASCADE ON DELETE SET NULL 
     PRIMARY KEY(nurse, service)
 );
 
 CREATE TABLE Doctor(
-    person PRIMARY KEY REFERENCES Person,
+    person PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL ,
     specialization TEXT,
-    department INTEGER REFERENCES Department NOT NULL
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL 
     CONSTRAINT PossibleSpecializations CHECK(
         specialization == 'None'
         || specialization == 'General'
@@ -110,26 +110,26 @@ CREATE TABLE Doctor(
 );
 
 CREATE TABLE DoctorService(
-    doctor REFERENCES Person
-    service REFERNCES Service
+    doctor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL 
+    service REFERNCES Service ON UPDATE CASCADE ON DELETE SET NULL 
     PRIMARY KEY(doctor, service)
 );
 
 CREATE TABLE Client(
-    person INTEGER PRIMARY KEY REFERENCES Person
+    person INTEGER PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE TABLE Patient(
-    person INTEGER PRIMARY KEY REFERENCES Person
+    person INTEGER PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE TABLE Visitor(
-    person INTEGER PRIMARY KEY REFERENCES Person
+    person INTEGER PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE TABLE VisitTime(
-    patient REFERENCES Person,
-    visitor REFERENCES Person,
+    patient REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL,
+    visitor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
     start_visit_date DATETIME,
     end_visit_date DATETIME,
     order INTEGER CHECK (order>=1 && order <= 3), 
@@ -138,8 +138,8 @@ CREATE TABLE VisitTime(
     CONSTRAINT validVisitTime CHECK(end_visit_date > start_visit_date)
 );
 CREATE TABLE MedicalRecord(
-    patient INTEGER REFERENCES Person,
-    service INTEGER REFERENCES Service,
+    patient INTEGER REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL ,
+    service INTEGER REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL ,
     price INTEGER CHECK(price > 0),
     date_in DATETIME,
     date_out DATETIME,
@@ -148,33 +148,33 @@ CREATE TABLE MedicalRecord(
 );
 
 CREATE TABLE Appointment(
-    service INTEGER PRIMARY KEY REFERENCES Service
+    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE TABLE Surgery(
-    service INTEGER PRIMARY KEY REFERENCES Service
+    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE TABLE Ambulance(
-    service INTEGER PRIMARY KEY REFERENCES Service
+    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL 
     amb_id INTEGER CHECK(id > 0) UNIQUE,
     priority INTEGER CHECK(priority >=1 && priority <= 5)
 );
 
 CREATE TABLE AmbulanceMaintenace(
-    ambulance INTEGER REFERENCES Ambulance,
-    maintenance INTEGER REFERENCES Maintenance,
+    ambulance INTEGER REFERENCES Ambulance ON UPDATE CASCADE ON DELETE SET NULL ,
+    maintenance INTEGER REFERENCES Maintenance ON UPDATE CASCADE ON DELETE SET NULL ,
     order INTEGER CHECK(order >= 1 && order <= 3),
     PRIMARY KEY(ambulance, maintenance)
 );
 
 CREATE TABLE Extern(
-    location INTEGER PRIMARY KEY REFERENCES Location
+    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
     address TEXT NOT NULL
 );
 
 CREATE TABLE SurgeryRoom(
-    location INTEGER PRIMARY KEY REFERENCES Location
+    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
     specialization TEXT,
     CONSTRAINT PossibleSpecializations CHECK(
         specialization == 'None'
@@ -183,17 +183,17 @@ CREATE TABLE SurgeryRoom(
 );
 
 CREATE TABLE IntensiveCareRoom(
-    location INTEGER PRIMARY KEY REFERENCES Location
+    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
     o2 INTEGER,
     iv INTEGER
 );
 
 CREATE TABLE NormalCareRoom(
-    location INTEGER PRIMARY KEY REFERENCES Location
+    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE TABLE Office(
-    location INTEGER PRIMARY KEY REFERENCES Location
+    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
 CREATE ASSERTION Max3VisitorPerPatient CHECK(
