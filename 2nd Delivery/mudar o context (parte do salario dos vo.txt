@@ -1,0 +1,12 @@
+mudar o context (parte do salario dos volutnarios)
+passar specialization para uma class
+passar work schedule para class
+generalizacao too broad( nos esquemas relacionais fica so com um atributo e sem mais nada)
+Disjoin classes as triggers
+contexto entre pacientes e visitantes
+medical record problem
+como fazer as entregas?]
+
+dar highlight as mudancas do contexto
+classe de associacao do medical record e para cortar
+classe de associacao entre maintenance e ambulance

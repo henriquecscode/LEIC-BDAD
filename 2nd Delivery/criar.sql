@@ -44,7 +44,7 @@ CREATE TABLE Person(
     insurance_id INTEGER UNIQUE,
 
     CONSTRAINT validAge CHECK(date('now') - birth_date == age || birth_date IS NULL || death_date IS NOT NULL)
-    //Might need to change as this might not be a viable difference
+/*Might need to change as this might not be a viable difference*/
 );
 
 CREATE TABLE Department(
@@ -69,7 +69,7 @@ CREATE TABLE Service(
 CREATE TABLE Worker(
     person PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL,
     salary INTEGER CHECK (salary >= 0),
-    //need to rework how work_schedule works
+    /*need to rework how work_schedule works*/
 );
 
 CREATE TABLE Manager(
@@ -196,10 +196,12 @@ CREATE TABLE Office(
     location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
+/*Is going to be a trigger*/
 CREATE ASSERTION Max3VisitorPerPatient CHECK(
-    //to be defined
+    /*to be defined*/
 );
 
+/*Is going to be a trigger*/
 CREATE ASSERTION DisjointLocations CHECK(
 
 );
