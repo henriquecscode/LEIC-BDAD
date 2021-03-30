@@ -1,6 +1,6 @@
 <p>
 Person(<ins>id</ins>, name, birth_date, death_date, age, gender, phone_number, NIF, email, address, insurance_id)<br>
-id -> name, birth_date, death_date, gender, phone_number, NIF, email, address, insurance_id
+id -> name, birth_date, death_date, age, gender, phone_number, NIF, email, address, insurance_id
 birth_date ->age
 
 Department(<ins>id</ins>, floor)<br>
@@ -13,7 +13,7 @@ Service(<ins>id</ins>, diagnosis, medication, location->Location)<br>
 id->diagnosis, medication, location
 
 Worker(<ins>person</ins>->Person, salary, work_schedule)<br>
-person-> salary, work_schedule
+person->salary, work_schedule
 
 Manager(<ins>person</ins>->Person, department->Department)<br>
 person->department

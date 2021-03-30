@@ -30,7 +30,6 @@ DROP TABLE IF EXISTS NormalCareRoom;
 DROP TABLE IF EXISTS Office;
 
 
-
 CREATE TABLE Person(
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
@@ -133,7 +132,7 @@ CREATE TABLE VisitTime(
     visitor REFERENCES Person,
     start_visit_date DATETIME,
     end_visit_date DATETIME,
-    order INTEGER CHECK (order < 4), 
+    order INTEGER CHECK (order>=1 && order <= 3), 
     PRIMARY KEY (patient, visitor),
     CONSTRAINT notSamePerson CHECK(patient != visitor)
     CONSTRAINT validVisitTime CHECK(end_visit_date > start_visit_date)
@@ -172,7 +171,7 @@ CREATE TABLE AmbulanceMaintenace(
 
 CREATE TABLE Extern(
     location INTEGER PRIMARY KEY REFERENCES Location
-    address TEXT
+    address TEXT NOT NULL
 );
 
 CREATE TABLE SurgeryRoom(
@@ -194,12 +193,9 @@ CREATE TABLE NormalCareRoom(
     location INTEGER PRIMARY KEY REFERENCES Location
 );
 
-
 CREATE TABLE Office(
     location INTEGER PRIMARY KEY REFERENCES Location
 );
-
-
 
 CREATE ASSERTION Max3VisitorPerPatient CHECK(
     //to be defined
