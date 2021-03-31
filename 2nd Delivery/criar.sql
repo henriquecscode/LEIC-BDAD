@@ -28,6 +28,7 @@ DROP TABLE IF EXISTS SurgeryRoom;
 DROP TABLE IF EXISTS IntensiveCareRoom;
 DROP TABLE IF EXISTS NormalCareRoom;
 DROP TABLE IF EXISTS Office;
+DROP TABLE IF EXISTS Specialization;
 
 
 CREATE TABLE Person(
@@ -63,23 +64,40 @@ CREATE TABLE Service(
     id INTEGER PRIMARY KEY,
     diagnosis TEXT,
     medication TEXT,
-    
+    patient INTEGER REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL ,
+    price INTEGER CHECK(price > 0),
+    date_in DATETIME,
+    date_out DATETIME,
+    PRIMARY KEY (patient, service),
+    CONSTRAINT validServiceTime CHECK(date_out > date_in || date_out IS NULL)
+);
+
+CREATE TABLE Shift(
+    day_in TEXT,
+    time_in VARCHAR(8),
+    day_out TEXT,
+    time_out VARCHAR(8),
+    CONSTRAINT noBiggerThan48Hours CHECK(time_out - time_in < 2) /* Needs checking */
 );
 
 CREATE TABLE Worker(
     person PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL,
     salary INTEGER CHECK (salary >= 0),
-    /*need to rework how work_schedule works*/
+    schedule REFERENCES Shift ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE Manager(
     person PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL,
-    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL 
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL,
+    salary INTEGER,
+    CONSTRAINT needsMoney CHECK(salary >= 0)
 );
 
 CREATE TABLE Maintenance(
     person PRIMARY KEY REFERENCES Person,
-    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL  
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL  ,
+    salary INTEGER,
+    CONSTRAINT needsMoney CHECK(salary >= 0)
 );
 
 CREATE TABLE Volunteer(
@@ -90,28 +108,27 @@ CREATE TABLE Volunteer(
 
 CREATE TABLE Nurse(
     person PRIMARY KEY REFERENCES Person,
-    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL 
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL,
+    salary INTEGER,
+    CONSTRAINT needsMoney CHECK(salary >= 0) 
 );
 
 CREATE TABLE NurseService(
-    nurse REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL 
-    service REFERNCES Service ON UPDATE CASCADE ON DELETE SET NULL 
+    nurse REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
+    service REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
     PRIMARY KEY(nurse, service)
 );
 
 CREATE TABLE Doctor(
     person PRIMARY KEY REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL ,
-    specialization TEXT,
-    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL 
-    CONSTRAINT PossibleSpecializations CHECK(
-        specialization == 'None'
-        || specialization == 'General'
-    )
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL,
+    salary INTEGER,
+    CONSTRAINT needsMoney CHECK(salary >= 0) 
 );
 
 CREATE TABLE DoctorService(
-    doctor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL 
-    service REFERNCES Service ON UPDATE CASCADE ON DELETE SET NULL 
+    doctor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
+    service REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
     PRIMARY KEY(doctor, service)
 );
 
@@ -134,34 +151,26 @@ CREATE TABLE VisitTime(
     end_visit_date DATETIME,
     order INTEGER CHECK (order>=1 && order <= 3), 
     PRIMARY KEY (patient, visitor),
-    CONSTRAINT notSamePerson CHECK(patient != visitor)
+    CONSTRAINT notSamePerson CHECK(patient != visitor),
     CONSTRAINT validVisitTime CHECK(end_visit_date > start_visit_date)
-);
-CREATE TABLE MedicalRecord(
-    patient INTEGER REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL ,
-    service INTEGER REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL ,
-    price INTEGER CHECK(price > 0),
-    date_in DATETIME,
-    date_out DATETIME,
-    PRIMARY KEY (patient, service),
-    CONSTRAINT validServiceTime CHECK(date_out > date_in || date_out IS NULL)
 );
 
 CREATE TABLE Appointment(
-    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL 
+    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
 );
 
 CREATE TABLE Surgery(
-    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL 
+    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
 );
 
 CREATE TABLE Ambulance(
-    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL 
+    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
     amb_id INTEGER CHECK(id > 0) UNIQUE,
-    priority INTEGER CHECK(priority >=1 && priority <= 5)
+    priority INTEGER CHECK(priority >=1 && priority <= 5),
+    maintenance_job REFERENCES MaintenaceJob
 );
 
-CREATE TABLE AmbulanceMaintenace(
+CREATE TABLE MaintenaceJob(
     ambulance INTEGER REFERENCES Ambulance ON UPDATE CASCADE ON DELETE SET NULL ,
     maintenance INTEGER REFERENCES Maintenance ON UPDATE CASCADE ON DELETE SET NULL ,
     order INTEGER CHECK(order >= 1 && order <= 3),
@@ -169,21 +178,21 @@ CREATE TABLE AmbulanceMaintenace(
 );
 
 CREATE TABLE Extern(
-    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
+    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL, 
     address TEXT NOT NULL
 );
 
 CREATE TABLE SurgeryRoom(
-    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
-    specialization TEXT,
-    CONSTRAINT PossibleSpecializations CHECK(
+    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL,
+    specialization TEXT REFERENCES Specialization ON UPDATE CASCADE ON DELETE SET NULL,
+    CONSTRAINT PossibleSpecializations DEFAULT "General" CHECK(
         specialization == 'None'
         || specialization == 'General'
     )
 );
 
 CREATE TABLE IntensiveCareRoom(
-    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
+    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL,
     o2 INTEGER,
     iv INTEGER
 );
@@ -194,6 +203,14 @@ CREATE TABLE NormalCareRoom(
 
 CREATE TABLE Office(
     location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
+);
+
+CREATE TABLE Specialization(
+    speciality TEXT,
+    CONSTRAINT PossibleSpecializations DEFAULT "General" CHECK(
+        specialization == 'None'
+        || specialization == 'General'
+    )
 );
 
 /*Is going to be a trigger*/
