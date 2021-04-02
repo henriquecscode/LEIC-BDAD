@@ -6,8 +6,8 @@ birth_date -> age
 Department(<ins>id</ins>, floor)<br>
 id -> floor
 
-Location(<ins>id</ins>id, room_number, bed_number, department->Department)<br>
-id -> room_number, bed_number, department
+Location(<ins>id</ins>id, room_number, bed_number)<br>
+id -> room_number, bed_number
 
 Shift(<ins>id</ins>, day_of_the_week_in, time_in, day_of_the_week_out, time_out)<br>
 id -> day_of_the_week_in, time_in, day_of_the_week_out, time_out
