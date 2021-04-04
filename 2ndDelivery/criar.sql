@@ -1,13 +1,10 @@
-.headers on
-.mode columns
-PRAGMA foreign_keys=on;
-
 DROP TABLE IF EXISTS Person;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS Location;
 DROP TABLE IF EXISTS Shift;
 DROP TABLE IF EXISTS Specialization;
 DROP TABLE IF EXISTS Worker;
+DROP TABLE IF EXISTS WorkerShift;
 DROP TABLE IF EXISTS Manager;
 DROP TABLE IF EXISTS Maintenance;
 DROP TABLE IF EXISTS Volunteer;
@@ -25,15 +22,13 @@ DROP TABLE IF EXISTS MedicalRecord;
 DROP TABLE IF EXISTS Appointment;
 DROP TABLE IF EXISTS Surgery;
 DROP TABLE IF EXISTS Ambulance;
-DROP TABLE IF EXISTS AmbulanceMaintenance;
+DROP TABLE IF EXISTS MaintenanceJob;
 DROP TABLE IF EXISTS Extern;
 DROP TABLE IF EXISTS SurgeryRoom;
 DROP TABLE IF EXISTS SurgeryRoomSpecialization;
 DROP TABLE IF EXISTS IntensiveCareRoom;
 DROP TABLE IF EXISTS NormalCareRoom;
 DROP TABLE IF EXISTS Office;
-DROP TABLE IF EXISTS WorkerShift;
-DROP TABLE IF EXISTS MaintenaceJob;
 
 
 CREATE TABLE Person(
@@ -146,7 +141,7 @@ CREATE TABLE VisitTime(
     visitor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
     start_visit_date DATETIME,
     end_visit_date DATETIME,
-    order INTEGER CHECK (order>=1 AND order <= 3), 
+    ordera INTEGER CHECK (ordera>=1 AND ordera <= 3), 
     PRIMARY KEY (patient, visitor),
     CONSTRAINT notSamePerson CHECK(patient IS NOT visitor),
     CONSTRAINT validVisitTime CHECK(end_visit_date > start_visit_date)
@@ -187,11 +182,10 @@ CREATE TABLE Surgery(
 CREATE TABLE Ambulance(
     service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
     amb_id INTEGER CHECK(amb_id > 0) UNIQUE,
-    priority INTEGER CHECK(priority >=1 AND priority <= 5),
-    maintenance_job REFERENCES MaintenaceJob
+    priority INTEGER CHECK(priority >=1 AND priority <= 5)
 );
 
-CREATE TABLE MaintenaceJob(
+CREATE TABLE MaintenanceJob(
     ambulance INTEGER REFERENCES Ambulance ON UPDATE CASCADE ON DELETE SET NULL ,
     maintenance INTEGER REFERENCES Maintenance ON UPDATE CASCADE ON DELETE SET NULL ,
     date DATE,
@@ -232,16 +226,17 @@ CREATE TABLE Office(
     location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
 );
 
-/*Is going to be a trigger*/
-CREATE ASSERTION Max3VisitorPerPatient CHECK(
-    /*to be defined*/
-);
+/*Is going to be a trigger
+CREATE ASSERTION Max3VisitorPerPatient CHECK(1==1
+to be defined
+);*/
 
-/*Is going to be a trigger*/
+/*Is going to be a trigger
 CREATE ASSERTION DisjointLocations CHECK(
+1==1
+);*/
 
-);
+/*
+CREATE ASSERTION DisjoinWorkers CHECK(1==1
 
-CREATE ASSERTION DisjoinWorkers CHECK(
-
-);
+);*/
