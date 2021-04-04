@@ -46,11 +46,11 @@ INSERT INTO Specialization Values('Orthodonty');
 INSERT INTO Specialization Values('Neurology');
 
 /*Worker*/
-INSERT INTO Worker Values(0, 0);
-INSERT INTO Worker Values(1, 0);
-INSERT INTO Worker Values(2, 0);
-INSERT INTO Worker Values(3, 1);
-INSERT INTO Worker Values(4, 1);
+INSERT INTO Worker Values(0);
+INSERT INTO Worker Values(1);
+INSERT INTO Worker Values(2);
+INSERT INTO Worker Values(3);
+INSERT INTO Worker Values(4);
 
 /*WorkerShift*/
 INSERT INTO WorkerShift Values(0,0);
@@ -94,8 +94,8 @@ INSERT INTO Visitor Values(1);
 INSERT INTO Visitor Values(6);
 
 /*VisitTime*/
-INSERT INTO VisitTime Values(5, 1, '2021-04-03 12:00:00', '2021-04-03 13:00:00', 1);
-INSERT INTO VisitTime Values(5, 6, '2021-04-03 13:00:00', '2021-04-03 14:00:00', 2);
+INSERT INTO VisitTime Values(5, 1, '2021-04-03 12:00:00', '2021-04-03 13:00:00');
+INSERT INTO VisitTime Values(5, 6, '2021-04-03 13:00:00', '2021-04-03 14:00:00');
 
 /*Service*/
 INSERT INTO Service Values(0, NULL, NULL, 100, '2021-04-03 10:00:00', '2021-04-03 11:00:00', 0, 5);

@@ -75,11 +75,8 @@ ambulance, maintenance -> date, did_disinfection, did_restock
 Extern(<ins>location</ins>->Location, address)<br>
 location -> address
 
-SurgeryRoom(<ins>location</ins>->Location)<br>
-location -> location
-
-SurgeryRoomSpecialization(<ins>room</ins>->SurgeryRoom, <ins>specialization</ins>->Specialization)<br>
-room, specialization -> room, specialization
+SurgeryRoom(<ins>location</ins>->Location, specialization->Specialization)<br>
+location -> specialization
 
 IntensiveCareRoom(<ins>location</ins>->Location, o2, iv)<br>
 location -> o2, iv
