@@ -129,10 +129,10 @@ INSERT INTO Ambulance Values(0, 1, 1);
 INSERT INTO MaintenanceJob Values(0, 1, '2021-04-02', 1, 1);
 
 /*Extern*/
-INSERT INTO Extern Values(0, "Rua x");
+INSERT INTO Extern Values(0, 'Rua x');
 
 /*SurgeryRoom*/
-INSERT INTO SurgeryRoom Values(1);
+INSERT INTO SurgeryRoom Values(1, 'General');
 
 /*IntensiveCareRoom*/
 INSERT INTO IntensiveCareRoom Values(2, 0, 0);
