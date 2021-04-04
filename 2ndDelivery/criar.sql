@@ -46,9 +46,6 @@ CREATE TABLE Person(
     address TEXT,
     insurance_id INTEGER UNIQUE
     
-    /*CONSTRAINT validAge CHECK(date('now') - birth_date == age OR birth_date IS NULL OR death_date IS NOT NULL)*/
-/*Might need to change as this might not be a viable difference*/
-/*Valid NIF, , address and insurance_ids*/
 );
 
 CREATE TABLE Department(
@@ -84,12 +81,10 @@ CREATE TABLE Shift(
         )
         
     )
-    /*Create trigger to verify that a shift can be no longer than 48 hours*/
 );
 
 CREATE TABLE Specialization(
     speciality TEXT PRIMARY KEY
-    /*Perhaps make a trigger for case-insensitive*/
 );
 
 CREATE TABLE Worker(
@@ -160,7 +155,6 @@ CREATE TABLE VisitTime(
     visitor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
     start_visit_date DATETIME,
     end_visit_date DATETIME,
-    ordera INTEGER CHECK (ordera>=1 AND ordera <= 3), /*Create trigger for no two visitors with the same patient that have the same order*/
     PRIMARY KEY (patient, visitor),
     CONSTRAINT notSamePerson CHECK(patient IS NOT visitor),
     CONSTRAINT validVisitTime CHECK(end_visit_date > start_visit_date)
@@ -213,7 +207,6 @@ CREATE TABLE MaintenanceJob(
     PRIMARY KEY(ambulance, maintenance),
     CONSTRAINT disinfectionBoolean CHECK (did_disinfection == 0 OR did_disinfection == 1),
     CONSTRAINT restockBoolean CHECK (did_restock == 0 OR did_restock == 1)
-    /*trigger for only 3 people performing maintenance*/
 );
 
 CREATE TABLE Extern(
@@ -223,7 +216,6 @@ CREATE TABLE Extern(
 
 CREATE TABLE SurgeryRoom(
     location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL
-    /*Trigger for needing to have at least on speciality*/
 );
 
 CREATE TABLE SurgeryRoomSpecialization(
@@ -247,19 +239,3 @@ CREATE TABLE NormalCareRoom(
 CREATE TABLE Office(
     location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL 
 );
-
-/*Is going to be a trigger
-CREATE ASSERTION Max3VisitorPerPatient CHECK(1==1
-to be defined
-);*/
-
-/*Is going to be a trigger
-CREATE ASSERTION DisjointLocations CHECK(
-1==1
-);*/
-
-/*
-CREATE ASSERTION DisjoinWorkers CHECK(1==1
-
-);*/
-/*Trigger so that shifts of the same worker doesn't overlap*/
