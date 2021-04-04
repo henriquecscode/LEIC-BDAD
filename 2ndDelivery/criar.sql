@@ -40,7 +40,7 @@ CREATE TABLE Person(
     birth_date DATE,
     death_date DATE,
     age INTEGER CHECK(age > 0),
-    gender TEXT CHECK(gerder == 'M' || gender == 'F'),
+    gender TEXT CHECK(gender == 'M' || gender == 'F'),
     phone_number INTEGER,
     NIF INTEGER UNIQUE,
     email INTEGER,
@@ -99,7 +99,7 @@ CREATE TABLE Manager(
 
 CREATE TABLE Maintenance(
     person PRIMARY KEY REFERENCES Worker ON UPDATE CASCADE ON DELETE SET NULL,
-    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL  ,
+    department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL,
     salary INTEGER,
     CONSTRAINT needsMoney CHECK(salary >= 0)
 );
@@ -160,7 +160,7 @@ CREATE TABLE Service(
     price INTEGER CHECK (price >= 0),
     date_in DATETIME NOT NULL,
     date_out DATETIME,
-    location INTEGER REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL
+    location INTEGER REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL,
     patient INTEGER REFERENCES Patient ON UPDATE CASCADE ON DELETE SET NULL ,
     CONSTRAINT validServiceTime CHECK(date_out > date_in || date_out IS NULL)
 );
