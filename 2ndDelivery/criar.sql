@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS SurgeryRoomSpecialization;
 DROP TABLE IF EXISTS IntensiveCareRoom;
 DROP TABLE IF EXISTS NormalCareRoom;
 DROP TABLE IF EXISTS Office;
+DROP TABLE IF EXISTS WorkerShift;
 
 
 CREATE TABLE Person(
@@ -40,14 +41,14 @@ CREATE TABLE Person(
     birth_date DATE,
     death_date DATE,
     age INTEGER CHECK(age > 0),
-    gender TEXT CHECK(gender == 'M' || gender == 'F'),
+    gender TEXT CHECK(gender == 'M' OR gender == 'F'),
     phone_number INTEGER,
     NIF INTEGER UNIQUE,
     email INTEGER,
     address INTEGER,
     insurance_id INTEGER UNIQUE,
     
-    CONSTRAINT validAge CHECK(date('now') - birth_date == age || birth_date IS NULL || death_date IS NOT NULL)
+    CONSTRAINT validAge CHECK(date('now') - birth_date == age OR birth_date IS NULL OR death_date IS NOT NULL)
 /*Might need to change as this might not be a viable difference*/
 /*Valid NIF, phone_number, address and insurance_ids*/
 );
@@ -68,10 +69,7 @@ CREATE TABLE Shift(
     day_of_the_week_in TEXT,
     time_in TIME,
     day_of_the_week_out TEXT,
-    time_out TIME,
-    /*
-    Probably not needed
-    CONSTRAINT noBiggerThan48Hours CHECK(time_out - time_in < 2) /* Needs checking */
+    time_out TIME
 );
 
 CREATE TABLE Specialization(
@@ -147,29 +145,29 @@ CREATE TABLE VisitTime(
     visitor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
     start_visit_date DATETIME,
     end_visit_date DATETIME,
-    order INTEGER CHECK (order>=1 && order <= 3), 
+    order INTEGER CHECK (order>=1 AND order <= 3), 
     PRIMARY KEY (patient, visitor),
-    CONSTRAINT notSamePerson CHECK(patient != visitor),
+    CONSTRAINT notSamePerson CHECK(patient IS NOT visitor),
     CONSTRAINT validVisitTime CHECK(end_visit_date > start_visit_date)
 );
 
 CREATE TABLE Service(
     id INTEGER PRIMARY KEY,
     diagnosis TEXT,
-    medication TEXT,
+    medication TEXT,    
     price INTEGER CHECK (price >= 0),
     date_in DATETIME NOT NULL,
     date_out DATETIME,
     location INTEGER REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL,
     patient INTEGER REFERENCES Patient ON UPDATE CASCADE ON DELETE SET NULL ,
-    CONSTRAINT validServiceTime CHECK(date_out > date_in || date_out IS NULL)
+    CONSTRAINT validServiceTime CHECK(date_out > date_in OR date_out IS NULL)
 );
 
 CREATE TABLE NurseService(
     nurse REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
     service REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
     PRIMARY KEY(nurse, service)
-);
+);  
 
 CREATE TABLE DoctorService(
     doctor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
@@ -178,17 +176,17 @@ CREATE TABLE DoctorService(
 );
 
 CREATE TABLE Appointment(
-    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
+    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE Surgery(
-    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
+    service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE Ambulance(
     service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
     amb_id INTEGER CHECK(id > 0) UNIQUE,
-    priority INTEGER CHECK(priority >=1 && priority <= 5),
+    priority INTEGER CHECK(priority >=1 AND priority <= 5),
     maintenance_job REFERENCES MaintenaceJob
 );
 
@@ -199,8 +197,8 @@ CREATE TABLE MaintenaceJob(
     did_disinfection INTEGER,
     did_restock INTEGER,
     PRIMARY KEY(ambulance, maintenance),
-    CONSTRAINT disinfectionBoolean CHECK (did_disinfection == 0 || did_disinfection == 1 || did_restock IS NULL),
-    CONSTRAINT restockBoolean CHECK (did_restock == 0 || did_restock == 1 || did_restock IS NULL)
+    CONSTRAINT disinfectionBoolean CHECK (did_disinfection == 0 OR did_disinfection == 1 OR did_restock IS NULL),
+    CONSTRAINT restockBoolean CHECK (did_restock == 0 OR did_restock == 1 OR did_restock IS NULL)
     /*trigger for only 3 people performing maintenance*/
 );
 
@@ -210,13 +208,13 @@ CREATE TABLE Extern(
 );
 
 CREATE TABLE SurgeryRoom(
-    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL,
+    location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL
     /*Trigger for needing to have at least on speciality*/
 );
 
 CREATE TABLE SurgeryRoomSpecialization(
     location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL,
-    specialization TEXT REFERENCES Specialization ON UPDATE CASCADE ON DELETE SET NULL,
+    specialization TEXT REFERENCES Specialization ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 CREATE TABLE IntensiveCareRoom(

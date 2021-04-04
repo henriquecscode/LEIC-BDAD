@@ -8,14 +8,12 @@ INSERT INTO Person Values(3, 'Daniel', '2000-01-04', NULL, NULL, 'M', 911111113,
 INSERT INTO Person Values(4, 'Eleanor', '2000-01-05', NULL, NULL, 'F', 911111114, 153111113, 'eleanor@example.com', 'Eleanors Street 1', NULL);
 INSERT INTO Person Values(5, 'Francis', '2000-01-06', NULL, NULL, 'M', 911111115, 153111114, 'francis@example.com', 'Francis Street 1', 10000001);
 INSERT INTO Person Values(6, 'Gustav', '2000-01-07', NULL, NULL, 'M', 911111116, 153111115, 'gustav@example.com', 'Gustav Street 1', 10000002);
-INSERT INTO Person Values()
 
 /*Department*/
 INSERT INTO Department Values(1, 1);
 INSERT INTO Department Values(2, 2);
 INSERT INTO Department Values(3, 3);
 INSERT INTO Department Values(4, 4);
-
 
 /*Location*/
 INSERT INTO Location Values(0, NULL, NULL);
@@ -50,7 +48,7 @@ INSERT INTO Manager Values(0, 0, 1500);
 INSERT INTO Maintenance Values(1, 0, 1000);
 
 /*Volunteer*/
-INSERT INTO Volunteer Values(2, 'Association A', 1)
+INSERT INTO Volunteer Values(2, 'Association A', 1);
 
 /*Nurse*/
 INSERT INTO Nurse Values(3, 1, 1500);
@@ -68,11 +66,11 @@ INSERT INTO Client Values(5);
 INSERT INTO Client Values(6);
 
 /*Patient*/
-INSERT INTO Patient Values(5)
+INSERT INTO Patient Values(5);
 
 /*Visitor*/
-INSERT INTO Visitor Values(1)
-INSERT INTO Visitor Values(6)
+INSERT INTO Visitor Values(1);
+INSERT INTO Visitor Values(6);
 
 /*VisitTime*/
 INSERT INTO VisitTime Values(5, 1, '2021-04-03 12:00:00', '2021-04-03 13:00:00', 1);
@@ -113,13 +111,13 @@ INSERT INTO MaintenaceJob Values(0, 1, '2021-04-02', 1, 1);
 INSERT INTO Extern Values(0);
 
 /*SurgeryRoom*/
-INSERT INTO SurgeryRoom Values(1)
+INSERT INTO SurgeryRoom Values(1);
 
 /*IntensiveCareRoom*/
-INSERT INTO IntensiveCareRoom Values(2)
+INSERT INTO IntensiveCareRoom Values(2);
 
 /*NormalCareRoom*/
-INSERT INTO NormalCareRoom Values(3)
+INSERT INTO NormalCareRoom Values(3);
 
 /*Office*/
-INSERT INTO Office Values(4)
+INSERT INTO Office Values(4);
