@@ -41,14 +41,14 @@ CREATE TABLE Person(
     age INTEGER CHECK(age > 0),
     gender TEXT CHECK(gender == 'M' OR gender == 'F' OR gender == 'O'),
     phone_number INTEGER,
-    NIF INTEGER UNIQUE,
-    email INTEGER,
-    address INTEGER,
+    NIF VARCHAR(9) UNIQUE CHECK(length(NIF)==9),
+    email TEXT LIKE "%@%.%",
+    address TEXT,
     insurance_id INTEGER UNIQUE
     
     /*CONSTRAINT validAge CHECK(date('now') - birth_date == age OR birth_date IS NULL OR death_date IS NOT NULL)*/
 /*Might need to change as this might not be a viable difference*/
-/*Valid NIF, phone_number, address and insurance_ids*/
+/*Valid NIF, , address and insurance_ids*/
 );
 
 CREATE TABLE Department(
