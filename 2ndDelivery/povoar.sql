@@ -10,6 +10,7 @@ INSERT INTO Person Values(5, 'Francis', '2000-01-06', NULL, NULL, 'M', 911111115
 INSERT INTO Person Values(6, 'Gustav', '2000-01-07', NULL, NULL, 'M', 911111116, 153111115, 'gustav@example.com', 'Gustav Street 1', 10000002);
 
 /*Department*/
+INSERT INTO Department Values(0, 1);
 INSERT INTO Department Values(1, 1);
 INSERT INTO Department Values(2, 2);
 INSERT INTO Department Values(3, 3);
@@ -30,9 +31,9 @@ INSERT INTO Shift Values(2, 'Monday', '00:00:00', 'Tuesday', '00:00:00');
 INSERT INTO Shift Values(3, 'Tuesday', '00:00:00', 'Tuesday', '08:00:00');
 
 /*Specialization*/
-INSERTO INTO Specialization Values('General');
-INSERTO INTO Specialization Values('Orthodonty');
-INSERTO INTO Specialization Values('Neurology');
+INSERT INTO Specialization Values('General');
+INSERT INTO Specialization Values('Orthodonty');
+INSERT INTO Specialization Values('Neurology');
 
 /*Worker*/
 INSERT INTO Worker Values(0, 0);
@@ -57,8 +58,8 @@ INSERT INTO Nurse Values(3, 1, 1500);
 INSERT INTO Doctor Values(4, 2, 1000);
 
 /*DoctorSpecialization*/
-INSERT INTO DoctorSpecializatoin Values(4, 'General');
-INSERT INTO DoctorSpecializatoin Values(4, 'Neurology');
+INSERT INTO DoctorSpecialization Values(4, 'General');
+INSERT INTO DoctorSpecialization Values(4, 'Neurology');
 
 /*Client*/
 INSERT INTO Client Values(1);
@@ -105,16 +106,16 @@ INSERT INTO Surgery Values(4);
 INSERT INTO Ambulance Values(0, 1, 1);
 
 /*MaintenaceJob*/
-INSERT INTO MaintenaceJob Values(0, 1, '2021-04-02', 1, 1);
+INSERT INTO MaintenanceJob Values(0, 1, '2021-04-02', 1, 1);
 
 /*Extern*/
-INSERT INTO Extern Values(0);
+INSERT INTO Extern Values(0, "Rua x");
 
 /*SurgeryRoom*/
 INSERT INTO SurgeryRoom Values(1);
 
 /*IntensiveCareRoom*/
-INSERT INTO IntensiveCareRoom Values(2);
+INSERT INTO IntensiveCareRoom Values(2, 0, 0);
 
 /*NormalCareRoom*/
 INSERT INTO NormalCareRoom Values(3);

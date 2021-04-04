@@ -42,9 +42,9 @@ CREATE TABLE Person(
     NIF INTEGER UNIQUE,
     email INTEGER,
     address INTEGER,
-    insurance_id INTEGER UNIQUE,
+    insurance_id INTEGER UNIQUE
     
-    CONSTRAINT validAge CHECK(date('now') - birth_date == age OR birth_date IS NULL OR death_date IS NOT NULL)
+    /*CONSTRAINT validAge CHECK(date('now') - birth_date == age OR birth_date IS NULL OR death_date IS NOT NULL)*/
 /*Might need to change as this might not be a viable difference*/
 /*Valid NIF, phone_number, address and insurance_ids*/
 );
@@ -56,8 +56,8 @@ CREATE TABLE Department(
 
 CREATE TABLE Location(
     id INTEGER PRIMARY KEY,
-    room_number INTEGER CHECK(room_number > 0) UNIQUE,
-    bed_number INTEGER CHECK(bed_number > 0)
+    room_number INTEGER CHECK(room_number > 0),
+    bed_number INTEGER CHECK(bed_number > 0) UNIQUE
 );
 
 CREATE TABLE Shift(
@@ -120,8 +120,8 @@ CREATE TABLE Doctor(
 
 CREATE TABLE DoctorSpecialization(
     doctor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
-    shift REFERENCES Shift ON UPDATE CASCADE ON DELETE SET NULL, 
-    PRIMARY KEY(doctor, shift)
+    specialization REFERENCES Specialization ON UPDATE CASCADE ON DELETE SET NULL, 
+    PRIMARY KEY(doctor, specialization)
 );
 
 CREATE TABLE Client(
@@ -192,7 +192,7 @@ CREATE TABLE MaintenanceJob(
     did_disinfection INTEGER,
     did_restock INTEGER,
     PRIMARY KEY(ambulance, maintenance),
-    CONSTRAINT disinfectionBoolean CHECK (did_disinfection == 0 OR did_disinfection == 1 OR did_restock IS NULL),
+    CONSTRAINT disinfectionBoolean CHECK (did_disinfection == 0 OR did_disinfection == 1 OR did_disinfection IS NULL),
     CONSTRAINT restockBoolean CHECK (did_restock == 0 OR did_restock == 1 OR did_restock IS NULL)
     /*trigger for only 3 people performing maintenance*/
 );
@@ -215,7 +215,10 @@ CREATE TABLE SurgeryRoomSpecialization(
 CREATE TABLE IntensiveCareRoom(
     location INTEGER PRIMARY KEY REFERENCES Location ON UPDATE CASCADE ON DELETE SET NULL,
     o2 INTEGER,
-    iv INTEGER
+    iv INTEGER,
+    CONSTRAINT o2Boolean CHECK (o2 == 0 OR o2 == 1 OR o2 IS NULL),
+    CONSTRAINT ivBoolean CHECK (iv == 0 OR iv == 1 OR iv IS NULL)
+
 );
 
 CREATE TABLE NormalCareRoom(
