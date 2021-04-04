@@ -64,12 +64,26 @@ CREATE TABLE Location(
 
 CREATE TABLE Shift(
     id INTEGER PRIMARY KEY,
-    day_of_the_week_in TEXT,
+    day_of_the_week_in INT,
     time_in TIME,
-    day_of_the_week_out TEXT,
+    day_of_the_week_out INT,
     time_out TIME,
-    CONSTRAINT dayInIsADay CHECK(day_of_the_week_in=="Monday" OR day_of_the_week_in=="Tuesday" OR day_of_the_week_in=="Wednesday" OR day_of_the_week_in=="Thursday" OR day_of_the_week_in=="Friday" OR day_of_the_week_in=="Saturday" OR day_of_the_week_in=="Sunday"),
-    CONSTRAINT dayOutIsADay CHECK(day_of_the_week_in=="Monday" OR day_of_the_week_in=="Tuesday" OR day_of_the_week_in=="Wednesday" OR day_of_the_week_in=="Thursday" OR day_of_the_week_in=="Friday" OR day_of_the_week_in=="Saturday" OR day_of_the_week_in=="Sunday")
+    CONSTRAINT dayInIsADay CHECK(day_of_the_week_in >= 0 AND day_of_the_week_in <= 6),
+    CONSTRAINT dayOutIsADay CHECK(day_of_the_week_out >= 0 AND day_of_the_week_out <= 6),
+    CONSTRAINT shiftLessThan48 CHECK(
+        (
+            ((day_of_the_week_out - day_of_the_week_in) < 2 AND (day_of_the_week_out - day_of_the_week_in) >= 0)
+            OR 
+            ((day_of_the_week_out - day_of_the_week_in) + 7 < 2)
+        ) 
+        OR
+        (
+            ((day_of_the_week_out - day_of_the_week_in) == 2 OR (day_of_the_week_out - day_of_the_week_in) + 7 == 2)
+             AND
+            strftime('%s', time_in) >= strftime('%s', time_out)
+        )
+        
+    )
     /*Create trigger to verify that a shift can be no longer than 48 hours*/
 );
 
@@ -248,3 +262,4 @@ CREATE ASSERTION DisjointLocations CHECK(
 CREATE ASSERTION DisjoinWorkers CHECK(1==1
 
 );*/
+/*Trigger so that shifts of the same worker doesn't overlap*/

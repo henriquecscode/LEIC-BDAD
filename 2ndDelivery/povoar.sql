@@ -25,10 +25,20 @@ INSERT INTO Location Values(4, 200, 2001);
 INSERT INTO Location Values(5, 300, 3001);
 
 /*Shift*/
-INSERT INTO Shift Values(0, 'Monday', '00:00:00', 'Monday', '08:00:00');
-INSERT INTO Shift Values(1, 'Monday', '08:00:00', 'Monday', '16:00:00');
-INSERT INTO Shift Values(2, 'Monday', '00:00:00', 'Tuesday', '00:00:00');
-INSERT INTO Shift Values(3, 'Tuesday', '00:00:00', 'Tuesday', '08:00:00');
+INSERT INTO Shift Values(0, 1, '00:00:00', 1, '08:00:00');
+INSERT INTO Shift Values(1, 1, '08:00:00', 1, '16:00:00');
+INSERT INTO Shift Values(2, 1, '16:00:00', 2, '24:00:00');
+INSERT INTO Shift Values(3, 2, '00:00:00', 2, '08:00:00');
+INSERT INTO Shift Values(4, 2, '01:00:00', 4, '00:00:00');
+INSERT INTO Shift Values(5, 6, '00:00:00', 1, '00:00:00');
+INSERT INTO Shift Values(6, 6, '00:00:00', 0, '00:00:00');
+
+/*
+This are supposed to fail on insertion
+INSERT INTO Shift Values(7, 6, '00:00:00', 3, '00:00:00');
+INSERT INTO Shift Values(8, 6, '00:00:00', 2, '00:00:00');
+INSERT INTO Shift Values(9, 6, '09:00:00', 1, '10:00:00');
+*/
 
 /*Specialization*/
 INSERT INTO Specialization Values('General');
@@ -41,6 +51,16 @@ INSERT INTO Worker Values(1, 0);
 INSERT INTO Worker Values(2, 0);
 INSERT INTO Worker Values(3, 1);
 INSERT INTO Worker Values(4, 1);
+
+/*WorkerShift*/
+INSERT INTO WorkerShift Values(0,0);
+INSERT INTO WorkerShift Values(0,1);
+INSERT INTO WorkerShift Values(0,2);
+INSERT INTO WorkerShift Values(0,3);
+INSERT INTO WorkerShift Values(1,0);
+INSERT INTO WorkerShift Values(2,0);
+INSERT INTO WorkerShift Values(3,0);
+INSERT INTO WorkerShift Values(4,0);
 
 /*Manager*/
 INSERT INTO Manager Values(0, 0, 1500);

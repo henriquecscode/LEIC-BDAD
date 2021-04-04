@@ -79,7 +79,7 @@ SurgeryRoom(<ins>location</ins>->Location)<br>
 location -> location
 
 SurgeryRoomSpecialization(<ins>room</ins>->SurgeryRoom, <ins>specialization</ins>->Specialization)<br>
-room, specializatoin -> room, specialization
+room, specialization -> room, specialization
 
 IntensiveCareRoom(<ins>location</ins>->Location, o2, iv)<br>
 location -> o2, iv
