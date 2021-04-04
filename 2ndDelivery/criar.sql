@@ -101,14 +101,14 @@ CREATE TABLE Manager(
     person PRIMARY KEY REFERENCES Worker ON UPDATE CASCADE ON DELETE SET NULL,
     department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL,
     salary INTEGER,
-    CONSTRAINT needsMoney CHECK(salary >= 0)
+    CONSTRAINT needsMoney CHECK(salary > 0)
 );
 
 CREATE TABLE Maintenance(
     person PRIMARY KEY REFERENCES Worker ON UPDATE CASCADE ON DELETE SET NULL,
     department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL,
     salary INTEGER,
-    CONSTRAINT needsMoney CHECK(salary >= 0)
+    CONSTRAINT needsMoney CHECK(salary > 0)
 );
 
 CREATE TABLE Volunteer(
@@ -121,14 +121,14 @@ CREATE TABLE Nurse(
     person PRIMARY KEY REFERENCES Worker ON UPDATE CASCADE ON DELETE SET NULL,
     department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL,
     salary INTEGER,
-    CONSTRAINT needsMoney CHECK(salary >= 0) 
+    CONSTRAINT needsMoney CHECK(salary > 0) 
 );
 
 CREATE TABLE Doctor(
     person PRIMARY KEY REFERENCES Worker ON UPDATE CASCADE ON DELETE SET NULL ,
     department INTEGER NOT NULL REFERENCES Department ON UPDATE CASCADE ON DELETE SET NULL,
     salary INTEGER,
-    CONSTRAINT needsMoney CHECK(salary >= 0) 
+    CONSTRAINT needsMoney CHECK(salary > 0) 
 );
 
 CREATE TABLE DoctorSpecialization(
@@ -150,8 +150,8 @@ CREATE TABLE Visitor(
 );
 
 CREATE TABLE VisitTime(
-    patient REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL,
-    visitor REFERENCES Person ON UPDATE CASCADE ON DELETE SET NULL, 
+    patient REFERENCES Patient ON UPDATE CASCADE ON DELETE SET NULL,
+    visitor REFERENCES Visitor ON UPDATE CASCADE ON DELETE SET NULL, 
     start_visit_date DATETIME,
     end_visit_date DATETIME,
     PRIMARY KEY (patient, visitor),
