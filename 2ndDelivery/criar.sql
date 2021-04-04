@@ -33,6 +33,7 @@ DROP TABLE IF EXISTS IntensiveCareRoom;
 DROP TABLE IF EXISTS NormalCareRoom;
 DROP TABLE IF EXISTS Office;
 DROP TABLE IF EXISTS WorkerShift;
+DROP TABLE IF EXISTS MaintenaceJob;
 
 
 CREATE TABLE Person(
@@ -185,7 +186,7 @@ CREATE TABLE Surgery(
 
 CREATE TABLE Ambulance(
     service INTEGER PRIMARY KEY REFERENCES Service ON UPDATE CASCADE ON DELETE SET NULL, 
-    amb_id INTEGER CHECK(id > 0) UNIQUE,
+    amb_id INTEGER CHECK(amb_id > 0) UNIQUE,
     priority INTEGER CHECK(priority >=1 AND priority <= 5),
     maintenance_job REFERENCES MaintenaceJob
 );
