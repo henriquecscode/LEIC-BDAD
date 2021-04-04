@@ -211,8 +211,8 @@ CREATE TABLE MaintenanceJob(
     did_disinfection INTEGER,
     did_restock INTEGER,
     PRIMARY KEY(ambulance, maintenance),
-    CONSTRAINT disinfectionBoolean CHECK (did_disinfection == 0 OR did_disinfection == 1 OR did_disinfection IS NULL),
-    CONSTRAINT restockBoolean CHECK (did_restock == 0 OR did_restock == 1 OR did_restock IS NULL)
+    CONSTRAINT disinfectionBoolean CHECK (did_disinfection == 0 OR did_disinfection == 1),
+    CONSTRAINT restockBoolean CHECK (did_restock == 0 OR did_restock == 1)
     /*trigger for only 3 people performing maintenance*/
 );
 
