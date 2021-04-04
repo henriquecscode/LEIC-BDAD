@@ -1,3 +1,4 @@
+PRAGMA foreign_keys = OFF;
 DROP TABLE IF EXISTS Person;
 DROP TABLE IF EXISTS Department;
 DROP TABLE IF EXISTS Location;
@@ -29,6 +30,7 @@ DROP TABLE IF EXISTS SurgeryRoomSpecialization;
 DROP TABLE IF EXISTS IntensiveCareRoom;
 DROP TABLE IF EXISTS NormalCareRoom;
 DROP TABLE IF EXISTS Office;
+PRAGMA foreign_keys = ON;
 
 
 CREATE TABLE Person(
