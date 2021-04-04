@@ -39,7 +39,7 @@ CREATE TABLE Person(
     birth_date DATE,
     death_date DATE,
     age INTEGER CHECK(age > 0),
-    gender TEXT CHECK(gender == 'M' OR gender == 'F'),
+    gender TEXT CHECK(gender == 'M' OR gender == 'F' OR gender == 'O'),
     phone_number INTEGER,
     NIF INTEGER UNIQUE,
     email INTEGER,
@@ -67,7 +67,9 @@ CREATE TABLE Shift(
     day_of_the_week_in TEXT,
     time_in TIME,
     day_of_the_week_out TEXT,
-    time_out TIME
+    time_out TIME,
+    CONSTRAINT dayInIsADay CHECK(day_of_the_week_in=="Monday" OR day_of_the_week_in=="Tuesday" OR day_of_the_week_in=="Wednesday" OR day_of_the_week_in=="Thursday" OR day_of_the_week_in=="Friday" OR day_of_the_week_in=="Saturday" OR day_of_the_week_in=="Sunday"),
+    CONSTRAINT dayOutIsADay CHECK(day_of_the_week_in=="Monday" OR day_of_the_week_in=="Tuesday" OR day_of_the_week_in=="Wednesday" OR day_of_the_week_in=="Thursday" OR day_of_the_week_in=="Friday" OR day_of_the_week_in=="Saturday" OR day_of_the_week_in=="Sunday")
 );
 
 CREATE TABLE Specialization(

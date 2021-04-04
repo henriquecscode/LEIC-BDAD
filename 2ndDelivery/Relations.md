@@ -1,7 +1,6 @@
 <p>
 Person(<ins>id</ins>, name, birth_date, death_date, age, gender, phone_number, NIF, email, address, insurance_id)<br>
 id -> name, birth_date, death_date, age, gender, phone_number, NIF, email, address, insurance_id
-birth_date -> age
 
 Department(<ins>id</ins>, floor)<br>
 id -> floor
