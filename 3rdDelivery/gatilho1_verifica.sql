@@ -61,7 +61,6 @@ INSERT INTO Doctor VALUES(4, 0, 1000);
 
 -- Verify that an already assigned location cannot be assigned somewhere else
 -- Location 0 was already an Extern from povoar.sql
-
 INSERT INTO Extern VALUES(0, 'Rua X1');
 INSERT INTO SurgeryRoom VALUES(0, 'General');
 INSERT INTO IntensiveCareRoom VALUES(0, 0,0);
@@ -111,3 +110,37 @@ INSERT INTO SurgeryRoom VALUES(4, 'General');
 INSERT INTO IntensiveCareRoom VALUES(4, 0,0);
 INSERT INTO NormalCareRoom VALUES(4);
 INSERT INTO Office VALUES(4);
+
+-- DISJOINT SERVICES VERIFICATION
+
+-- Verify that an already assigned service cannot be assigned something else
+-- Service 0 was already an Ambulance from povoar.sql
+INSERT INTO Appointment VALUES(0);
+INSERT INTO Surgery VALUES(0);
+INSERT INTO Ambulance VALUES(0, 1, 1);
+
+
+-- Create a new Service that doesn't have a type yet
+INSERT INTO Service Values(5, NULL, NULL, 100, '2021-04-04 18:00:00', '2021-04-04 19:00:00', 1, 5);
+
+-- Assign it the Ambulance type
+INSERT INTO Ambulance VALUES(5, 2, 1);
+
+-- Verify that it cannot be assigned something else;
+INSERT INTO Appointment VALUES(0);
+INSERT INTO Surgery VALUES(0);
+
+-- EXTENSIVE
+-- Verify that it works for every type of assigned Service
+
+-- Appointment
+-- Service 2 was already an Appointment from povoar.sql
+INSERT INTO Appointment VALUES(2);
+INSERT INTO Surgery VALUES(2);
+INSERT INTO Ambulance VALUES(2, 3, 1);
+
+-- Surgery
+-- Service 4 was already an Appointment from povoar.sql
+INSERT INTO Appointment VALUES(4);
+INSERT INTO Surgery VALUES(4);
+INSERT INTO Ambulance VALUES(4, 4, 1);

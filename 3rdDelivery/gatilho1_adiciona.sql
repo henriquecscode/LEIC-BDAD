@@ -25,6 +25,13 @@ SELECT location FROM NormalCareRoom
 UNION
 SELECT location FROM Office;
 
+CREATE VIEW IF NOT EXISTS AllAssignedServices AS
+SELECT service FROM Appointment
+UNION
+SELECT service FROM Surgery
+UNION
+SELECT service from AMBULANCE;
+
 CREATE TRIGGER IF NOT EXISTS ensure_disjoint_manager
 BEFORE
 INSERT ON Manager
@@ -113,4 +120,31 @@ WHEN
     new.location IN AllAssignedLocations
 BEGIN
     SELECT raise(abort, 'Location already has an assigned type');
+END;
+
+CREATE TRIGGER IF NOT EXISTS ensure_disjoint_appointment
+BEFORE
+INSERT ON Appointment
+WHEN
+    new.service IN AllAssignedServices
+BEGIN
+    SELECT raise(abort, 'Service already has an assigned type');
+END;
+
+CREATE TRIGGER IF NOT EXISTS ensure_disjoint_surgery
+BEFORE
+INSERT ON Surgery
+WHEN
+    new.service IN AllAssignedServices
+BEGIN
+    SELECT raise(abort, 'Service already has an assigned type');
+END;
+
+CREATE TRIGGER IF NOT EXISTS ensure_disjoint_ambulance
+BEFORE
+INSERT ON Ambulance
+WHEN
+    new.service IN AllAssignedServices
+BEGIN
+    SELECT raise(abort, 'Service already has an assigned type');
 END;

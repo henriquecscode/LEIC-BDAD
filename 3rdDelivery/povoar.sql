@@ -117,7 +117,6 @@ INSERT INTO DoctorService Values(4, 4);
 /*Appointment*/
 INSERT INTO Appointment Values(2);
 INSERT INTO Appointment Values(3);
-INSERT INTO Appointment Values(4);
 
 /*Surgery*/
 INSERT INTO Surgery Values(4);
