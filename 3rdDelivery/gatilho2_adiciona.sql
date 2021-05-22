@@ -4,14 +4,16 @@
 PRAGMA foreign_keys = ON;
 
 CREATE VIEW IF NOT EXISTS MaintenancePersons AS
-SELECT person FROM Maintenance
+SELECT person FROM Maintenance as M
 JOIN
-SELECT maintenance FROM MaintenanceJob;
+MaintenanceJob
+ON (M.person = MaintenanceJob.maintenance);
 
 CREATE VIEW IF NOT EXISTS VisitorNumber AS
-SELECT person FROM Visitor
+SELECT person FROM Visitor as V
 JOIN
-SELECT visitor FROM VisitTime;
+VisitTime
+ON (V.person = VisitTime.visitor);
 
 CREATE TRIGGER IF NOT EXISTS Only3PersonOnMaintenanceJob
 BEFORE
