@@ -7,7 +7,8 @@
 
 Select S.id, S.price, S.patient, P.name
 FROM Service S
-JOIN Person P
-WHERE Person.id = S.patient
+JOIN 
+Person
+ON (Person.id = S.patient)
 ORDER BY price DESC 
 
