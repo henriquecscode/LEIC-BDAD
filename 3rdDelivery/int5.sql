@@ -3,4 +3,11 @@
 .nullvalue	NULL
 
 -- Get the list of services, ordered by descending price
--- and with the patient who uused the service
+-- and with the patient who used the service
+
+Select S.id, S.price, S.patient, P.name
+FROM Service S
+JOIN Person P
+WHERE Person.id = S.patient
+ORDER BY price DESC 
+
