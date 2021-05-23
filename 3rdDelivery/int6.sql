@@ -3,7 +3,7 @@
 .nullvalue	NULL
 
 -- Get the ambulances available and their priority
--- ordered from top prior to lower prior
+-- ordered from top priority to lower priorrity
 
 Select A.amb_id, A.priority
 FROM Ambulance A

@@ -63,7 +63,8 @@ INSERT INTO WorkerShift Values(3,0);
 INSERT INTO WorkerShift Values(4,0);
 
 /*Manager*/
-INSERT INTO Manager Values(0, 0, 1500);
+INSERT INTO Manager Values(0, 2, 1500);
+
 
 /*Maintenance*/
 INSERT INTO Maintenance Values(1, 0, 1000);
