@@ -16,7 +16,7 @@ Select person, department, 'nurse' as job from Nurse
 union 
 Select person, department, 'doctor' as job from Doctor;
 
-Select * from WorkerDepartment;
+-- Select * from WorkerDepartment;
 
 Select name, department, floor, job
 from (
