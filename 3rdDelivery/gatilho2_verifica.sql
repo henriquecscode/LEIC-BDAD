@@ -11,11 +11,20 @@ INSERT INTO Person VALUES(17, 'Pedro17', '2000-10-09', NULL, NULL, 'M', NULL, NU
 INSERT INTO Person VALUES(18, 'Pedro18', '2000-10-10', NULL, NULL, 'M', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO Person VALUES(19, 'Pedro19', '2000-10-11', NULL, NULL, 'M', NULL, NULL, NULL, NULL, NULL);
 
+INSERT INTO Worker VALUES(11);
+INSERT INTO Worker VALUES(12);
+INSERT INTO Worker VALUES(13);
+INSERT INTO Worker VALUES(14);
 INSERT INTO Maintenance VALUES(11, 0, 1000);
 INSERT INTO Maintenance VALUES(12, 0, 1000);
 INSERT INTO Maintenance VALUES(13, 0, 1000);
 INSERT INTO Maintenance VALUES(14, 0, 1000);
 
+INSERT INTO Client VALUES(15);
+INSERT INTO Client VALUES(16);
+INSERT INTO Client VALUES(17);
+INSERT INTO Client VALUES(18);
+INSERT INTO Client VALUES(19);
 INSERT INTO Patient VALUES(15);
 INSERT INTO Visitor VALUES(16);
 INSERT INTO Visitor VALUES(17);
@@ -23,13 +32,23 @@ INSERT INTO Visitor VALUES(18);
 INSERT INTO Visitor VALUES(19);
 
 -- Only 3 persons on a maintenance job
-INSERT INTO MaintenanceJob VALUES(1, 1, '2021-04-02', 1, 1);
-INSERT INTO MaintenanceJob VALUES(1, 2, '2021-04-02', 1, 1);
-INSERT INTO MaintenanceJob VALUES(1, 3, '2021-04-02', 1, 1);
-INSERT INTO MaintenanceJob VALUES(1, 4, '2021-04-02', 1, 1);
+INSERT INTO MaintenanceJob VALUES(0, 11, '2021-04-02', 1, 1);
+INSERT INTO MaintenanceJob VALUES(0, 12, '2021-04-02', 1, 1);
+INSERT INTO MaintenanceJob VALUES(0, 13, '2021-04-02', 1, 1);
+INSERT INTO MaintenanceJob VALUES(0, 14, '2021-04-02', 1, 1);
 
 -- Only 3 visitors per pacient
+SELECT * from VisitorNumber;
+SELECT * from VisitTime;
 INSERT INTO VisitTime VALUES(15, 16, '2021-04-02', '2021-04-03');
+SELECT * from VisitorNumber;
+SELECT * from VisitTime;
 INSERT INTO VisitTime VALUES(15, 17, '2021-04-02', '2021-04-03');
+SELECT * from VisitorNumber;
+SELECT * from VisitTime;
 INSERT INTO VisitTime VALUES(15, 18, '2021-04-02', '2021-04-03');
+SELECT * from VisitorNumber;
+SELECT * from VisitTime;
 INSERT INTO VisitTime VALUES(15, 19, '2021-04-02', '2021-04-03');
+SELECT * from VisitorNumber;
+SELECT * from VisitTime;
