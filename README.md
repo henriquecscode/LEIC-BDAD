@@ -12,7 +12,7 @@ Semester: 2nd
 <table style="width:50%;">
   <tr>
     <th><a href="https://github.com/p-paachecoo"><b>Pedro Pacheco</b></a></th>
-    <th><a href="https://github.com/henriquecscode"><b>Henrique Sousa</b></a></th>
+    <th><a href="https://github.com/henriquecscode"><b>Henrique Sousa (Self)</b></a></th>
     <th><a href="https://github.com/Lmdeo"><b>Leandro Oliveira</b></a></th>
   </tr>
 </table>
